@@ -1,0 +1,18 @@
+<!--components/treeview/treeview.wxml-->
+<!-- 多级树 -->
+<view class="tree_container">
+  <!-- 一级菜单 -->
+  <view style="padding-left: {{treeListIndex*8}}px">
+    <view bindtap='tapTreeItem' bindlongtap="taplongItem" class="weui-cell weui-cell_access" data-item="{{treeList}}">
+      <view class="weui-cell__bd">
+          <view class="tree_text">{{treeList.text}}</view>
+      </view>
+      <view wx:if="{{treeList.children.length>0}}" class="weui-cell__ft weui-cell__ft_in-access {{!collapse ? 'nocollapse_icon' : ''}}"></view>
+       <view wx:else>  </view>
+    </view>
+    <!-- 递归菜单 -->
+    <block wx:if="{{treeList.children && !collapse}}">
+      <treeview wx:for='{{treeList.children}}' wx:key='organizationId' treeList='{{ item }}' treeListIndex='{{treeListIndex+1}}' bind:treeTap="treenodetap" bind:treelongTap="treenodelongtap"></treeview>
+    </block>
+  </view>
+</view>
